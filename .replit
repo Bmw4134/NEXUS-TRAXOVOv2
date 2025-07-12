@@ -1,0 +1,15 @@
+[workflows]
+runButton = "TRAXOVO Main"
+
+[[workflows.workflow]]
+name = "TRAXOVO Main"
+author = 42738758
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "echo \"🧠 Initializing TRAXOVO Watson Intelligence Platform...\""
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python main.py"
