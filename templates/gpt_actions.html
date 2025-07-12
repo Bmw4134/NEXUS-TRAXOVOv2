@@ -1,0 +1,122 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPT Actions - TRAXOVO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+</head>
+<body class="bg-gray-900 text-green-400 font-mono">
+    <nav class="bg-black border-b border-green-500 p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="/" class="text-2xl font-bold hover:text-green-300">🧠 TRAXOVO</a>
+            <h2 class="text-xl">GPT Model Actions</h2>
+        </div>
+    </nav>
+
+    <main class="container mx-auto p-6" x-data="gptActions()">
+        <div class="bg-gray-800 p-6 rounded-lg border border-green-500 mb-6">
+            <h2 class="text-xl font-bold mb-4">🤖 Create New GPT Action</h2>
+            
+            <form @submit.prevent="createAction" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-bold mb-2">Action Name</label>
+                    <input type="text" x-model="actionForm.name" 
+                           class="w-full p-3 bg-gray-700 border border-green-500 rounded text-green-400"
+                           placeholder="Enter action name" required>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-bold mb-2">Action Type</label>
+                    <select x-model="actionForm.type" 
+                            class="w-full p-3 bg-gray-700 border border-green-500 rounded text-green-400">
+                        <option value="data_analysis">Data Analysis</option>
+                        <option value="text_processing">Text Processing</option>
+                        <option value="api_integration">API Integration</option>
+                        <option value="workflow_automation">Workflow Automation</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-bold mb-2">Description</label>
+                    <textarea x-model="actionForm.description" 
+                              class="w-full p-3 bg-gray-700 border border-green-500 rounded text-green-400 h-32"
+                              placeholder="Describe the action purpose and functionality" required></textarea>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-bold mb-2">Parameters (JSON)</label>
+                    <textarea x-model="actionForm.parameters" 
+                              class="w-full p-3 bg-gray-700 border border-green-500 rounded text-green-400 h-24"
+                              placeholder='{"param1": "value1", "param2": "value2"}'></textarea>
+                </div>
+                
+                <button type="submit" 
+                        class="bg-green-600 hover:bg-green-700 text-black font-bold py-3 px-6 rounded"
+                        :disabled="loading">
+                    <span x-show="!loading">Create Action</span>
+                    <span x-show="loading">Creating...</span>
+                </button>
+            </form>
+        </div>
+
+        <div x-show="result" class="bg-gray-800 p-6 rounded-lg border border-green-500">
+            <h3 class="text-lg font-bold mb-4">Action Result</h3>
+            <pre x-text="JSON.stringify(result, null, 2)" class="text-sm text-green-300"></pre>
+        </div>
+    </main>
+
+    <script>
+        function gptActions() {
+            return {
+                loading: false,
+                result: null,
+                actionForm: {
+                    name: '',
+                    type: 'data_analysis',
+                    description: '',
+                    parameters: '{}'
+                },
+                
+                async createAction() {
+                    this.loading = true;
+                    this.result = null;
+                    
+                    try {
+                        const response = await fetch('/api/gpt/create-action', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                ...this.actionForm,
+                                parameters: JSON.parse(this.actionForm.parameters || '{}'),
+                                created_at: new Date().toISOString()
+                            })
+                        });
+                        
+                        this.result = await response.json();
+                        
+                        if (this.result.status === 'success') {
+                            // Reset form on success
+                            this.actionForm = {
+                                name: '',
+                                type: 'data_analysis',
+                                description: '',
+                                parameters: '{}'
+                            };
+                        }
+                        
+                    } catch (error) {
+                        this.result = { status: 'error', message: error.message };
+                    } finally {
+                        this.loading = false;
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>

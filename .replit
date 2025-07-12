@@ -13,3 +13,6 @@ args = "echo \"🧠 Initializing TRAXOVO Watson Intelligence Platform...\""
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "python main.py"
+
+[nix]
+channel = "stable-24_05"

@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRAXOVO Watson Intelligence Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+</head>
+<body class="bg-gray-900 text-green-400 font-mono">
+    <nav class="bg-black border-b border-green-500 p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold">🧠 TRAXOVO {{ version }}</h1>
+            <div class="space-x-4">
+                <a href="/apis" class="hover:text-green-300">APIs</a>
+                <a href="/gpt-actions" class="hover:text-green-300">GPT Actions</a>
+                <a href="/data-processing" class="hover:text-green-300">Data</a>
+                <a href="/integrations" class="hover:text-green-300">Integrations</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto p-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <!-- Gauge API Status -->
+            <div class="bg-gray-800 p-6 rounded-lg border border-green-500">
+                <h3 class="text-lg font-bold mb-4">📊 Gauge API</h3>
+                <div class="text-sm">
+                    <p>Status: <span class="text-{{ 'green' if system_status.gauge.status == 'connected' else 'red' }}-400">{{ system_status.gauge.status }}</span></p>
+                    <p>Records: {{ system_status.gauge.records }}</p>
+                </div>
+            </div>
+
+            <!-- GNIS Connection -->
+            <div class="bg-gray-800 p-6 rounded-lg border border-green-500">
+                <h3 class="text-lg font-bold mb-4">🌐 GNIS Relay</h3>
+                <div class="text-sm">
+                    <p>Status: <span class="text-{{ 'green' if system_status.gnis.status == 'connected' else 'yellow' }}-400">{{ system_status.gnis.status }}</span></p>
+                    {% if system_status.gnis.endpoint %}
+                    <p>Endpoint: Active</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Watson Services -->
+            <div class="bg-gray-800 p-6 rounded-lg border border-green-500">
+                <h3 class="text-lg font-bold mb-4">🤖 Watson AI</h3>
+                <div class="text-sm">
+                    <p>Status: <span class="text-{{ 'green' if system_status.watson.status == 'configured' else 'yellow' }}-400">{{ system_status.watson.status }}</span></p>
+                    <p>Services: {{ system_status.watson.services|length }}</p>
+                </div>
+            </div>
+
+            <!-- External APIs -->
+            <div class="bg-gray-800 p-6 rounded-lg border border-green-500">
+                <h3 class="text-lg font-bold mb-4">🔗 External APIs</h3>
+                <div class="text-sm">
+                    <p>Connected: {{ external_count }}</p>
+                    <p>Status: <span class="text-green-400">Operational</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-gray-800 p-6 rounded-lg border border-green-500">
+            <h2 class="text-xl font-bold mb-4">🚀 Quick Actions</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <button onclick="window.location.href='/gpt-actions'" 
+                        class="bg-green-600 hover:bg-green-700 text-black font-bold py-3 px-6 rounded">
+                    Create GPT Action
+                </button>
+                <button onclick="window.location.href='/data-processing'" 
+                        class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded">
+                    Process Data
+                </button>
+                <button onclick="window.location.href='/integrations'" 
+                        class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded">
+                    Manage Integrations
+                </button>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
