@@ -1,0 +1,17 @@
+Activate TRAXOVO Reconstruction Agent.
+Use all preserved chat memory, deployment history, module snapshots, and schema patches.
+Apply only recursive, additive, future-proof enhancements to the existing live system.
+
+Rules:
+- Preserve current visual structure, routes, and agent task linkages.
+- Do not override production logic or past success state behavior.
+- Do not reset memory or destructively rewrite dashboards.
+
+Enhancements:
+- Integrate QQ Modeling enhancements across all modules.
+- Activate diff_watcher, session monitor, and data confidence validators.
+- Enable real-time fleet + job zone predictive overlays.
+- Validate GroundWorks integration (if NDA complete).
+- Re-link legacy driver–asset mapping matrix for job overlap detection.
+- Test against all known past regressions.
+- Output LIVE_READY = true only if no failure paths are detected.
