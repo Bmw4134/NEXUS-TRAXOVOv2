@@ -1,0 +1,1 @@
+# kpi_generator logic placeholder

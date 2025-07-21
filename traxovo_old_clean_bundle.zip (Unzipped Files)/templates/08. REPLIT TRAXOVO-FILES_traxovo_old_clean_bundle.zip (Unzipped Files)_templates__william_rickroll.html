@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Access Granted - TRAXOVO Intelligence</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #ffeaa7);
+            background-size: 400% 400%;
+            animation: gradientShift 3s ease infinite;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .rickroll-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 10;
+        }
+        
+        .dance-text {
+            font-size: 4rem;
+            color: white;
+            text-shadow: 3px 3px 0px #000;
+            margin-bottom: 2rem;
+            animation: bounce 1s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-30px); }
+            60% { transform: translateY(-15px); }
+        }
+        
+        .access-denied {
+            font-size: 2rem;
+            color: #ff4757;
+            text-shadow: 2px 2px 0px #000;
+            margin-bottom: 1rem;
+            animation: shake 0.5s infinite;
+        }
+        
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
+        }
+        
+        .video-container {
+            margin: 2rem 0;
+            border: 5px solid #ff6b6b;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(255, 107, 107, 0.8);
+            position: relative;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            pointer-events: none;
+            -webkit-touch-callout: none;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-user-drag: none;
+            -khtml-user-drag: none;
+            -moz-user-drag: none;
+            -o-user-drag: none;
+            user-drag: none;
+        }
+        
+        .video-container iframe {
+            pointer-events: none !important;
+            user-select: none !important;
+            -webkit-user-select: none !important;
+            -moz-user-select: none !important;
+            -ms-user-select: none !important;
+            -webkit-touch-callout: none !important;
+            -webkit-tap-highlight-color: transparent !important;
+            outline: none !important;
+            border: none !important;
+        }
+        
+        .video-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            z-index: 9999;
+            pointer-events: auto;
+            cursor: not-allowed;
+        }
+        
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            z-index: 1000;
+            cursor: not-allowed;
+        }
+        
+        .spinning-emoji {
+            font-size: 3rem;
+            animation: spin 2s linear infinite;
+            margin: 0 1rem;
+        }
+        
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .message {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            font-size: 1.2rem;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #ff6b6b;
+            animation: confetti-fall 3s linear infinite;
+        }
+        
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Confetti Animation -->
+    <div class="confetti" style="left: 10%; animation-delay: 0s; background: #ff6b6b;"></div>
+    <div class="confetti" style="left: 20%; animation-delay: 0.5s; background: #4ecdc4;"></div>
+    <div class="confetti" style="left: 30%; animation-delay: 1s; background: #45b7d1;"></div>
+    <div class="confetti" style="left: 40%; animation-delay: 1.5s; background: #96ceb4;"></div>
+    <div class="confetti" style="left: 50%; animation-delay: 2s; background: #ffeaa7;"></div>
+    <div class="confetti" style="left: 60%; animation-delay: 0.3s; background: #fd79a8;"></div>
+    <div class="confetti" style="left: 70%; animation-delay: 0.8s; background: #00cec9;"></div>
+    <div class="confetti" style="left: 80%; animation-delay: 1.3s; background: #e17055;"></div>
+    <div class="confetti" style="left: 90%; animation-delay: 1.8s; background: #a29bfe;"></div>
+
+    <div class="rickroll-container">
+        <div class="dance-text">
+            🕺 SURPRISE WILLIAM! 💃
+        </div>
+        
+        <div class="access-denied">
+            ❌ ACCESS DENIED ❌
+        </div>
+        
+        <div class="message">
+            🎵 Never gonna give you up, never gonna let you down! 🎵<br>
+            <span class="spinning-emoji">🎪</span>
+            You've been Rick Rolled!
+            <span class="spinning-emoji">🎪</span>
+        </div>
+        
+        <div class="video-container">
+            <iframe 
+                id="rickroll-video"
+                width="560" 
+                height="315" 
+                src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=1&mute=0&loop=1&playlist=dQw4w9WgXcQ&controls=0&disablekb=1&fs=0&rel=0&modestbranding=1&iv_load_policy=3&enablejsapi=1&cc_load_policy=0&playsinline=1&volume=100" 
+                title="Rick Astley - Never Gonna Give You Up" 
+                frameborder="0" 
+                allow="autoplay; encrypted-media" 
+                style="border-radius: 10px; pointer-events: none; position: relative; z-index: 1; user-select: none; -webkit-user-select: none;">
+            </iframe>
+            <!-- TRIPLE LAYER PROTECTION -->
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: transparent; z-index: 1000; pointer-events: auto; cursor: not-allowed;" onclick="playRickRoll(); return false;" oncontextmenu="return false;"></div>
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: transparent; z-index: 1001; pointer-events: none;"></div>
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: transparent; z-index: 1002; pointer-events: none;"></div>
+        </div>
+        
+        <div class="message">
+            🚫 Sorry William, this system is not for you! 🚫<br>
+            <small>Maybe try knocking next time? 😏</small>
+        </div>
+        
+        <div style="margin-top: 2rem;">
+            <span class="spinning-emoji">🎉</span>
+            <span class="spinning-emoji">🎊</span>
+            <span class="spinning-emoji">🎈</span>
+            <span class="spinning-emoji">🎁</span>
+            <span class="spinning-emoji">🎂</span>
+        </div>
+    </div>
+
+    <script>
+        // ULTIMATE ANTI-PAUSE ENFORCEMENT SYSTEM
+        let pauseAttempts = 0;
+        let forcePlayInterval;
+        let backupPlayers = [];
+        let ultimateMode = false;
+        
+        function playRickRoll() {
+            const iframe = document.getElementById('rickroll-video');
+            if (iframe) {
+                // HYPER-AGGRESSIVE YouTube API commands with FULL VOLUME
+                for (let i = 0; i < 30; i++) {
+                    setTimeout(() => {
+                        iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+                        iframe.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
+                        iframe.contentWindow.postMessage('{"event":"command","func":"setVolume","args":[100]}', '*');
+                        iframe.contentWindow.postMessage('{"event":"command","func":"seekTo","args":[0,true]}', '*');
+                        // Additional audio force commands
+                        iframe.contentWindow.postMessage('{"event":"command","func":"setPlaybackRate","args":[1]}', '*');
+                        iframe.contentWindow.postMessage('{"event":"command","func":"setLoop","args":[true]}', '*');
+                    }, i * 15);
+                }
+                
+                // ULTIMATE RELOAD with ALL anti-pause parameters
+                const baseSrc = 'https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=1&mute=0&loop=1&playlist=dQw4w9WgXcQ&controls=0&disablekb=1&fs=0&rel=0&modestbranding=1&iv_load_policy=3&enablejsapi=1&cc_load_policy=0&playsinline=1&volume=100&widget_referrer=william_audio_blocked';
+                iframe.src = baseSrc + '&force=' + Date.now() + '&random=' + Math.random() + '&william=' + Math.floor(Math.random() * 999999);
+                
+                // BLOCK ALL IFRAME INTERACTIONS
+                iframe.style.pointerEvents = 'none';
+                iframe.style.userSelect = 'none';
+                iframe.style.webkitUserSelect = 'none';
+                iframe.tabIndex = -1;
+            }
+        }
+        
+        function createBackupPlayer(index) {
+            const backup = document.createElement('iframe');
+            backup.id = 'backup-rick-' + index;
+            backup.src = 'https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=1&loop=1&playlist=dQw4w9WgXcQ&controls=0&mute=0&volume=100&enablejsapi=1&start=' + (index * 10);
+            backup.style.cssText = `
+                position: fixed;
+                left: ${index * 50}px;
+                top: ${index * 50}px;
+                width: 200px;
+                height: 150px;
+                z-index: ${9000 + index};
+                border: 3px solid #ff6b6b;
+                border-radius: 10px;
+                opacity: 0.8;
+            `;
+            backup.allow = 'autoplay';
+            document.body.appendChild(backup);
+            backupPlayers.push(backup);
+            return backup;
+        }
+        
+        function activateUltimateMode() {
+            if (ultimateMode) return;
+            ultimateMode = true;
+            
+            // Create multiple backup players
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => createBackupPlayer(i), i * 500);
+            }
+            
+            // Create floating Rick Roll messages
+            setInterval(() => {
+                const message = document.createElement('div');
+                message.textContent = '🎵 NEVER GONNA GIVE YOU UP, WILLIAM! 🎵';
+                message.style.cssText = `
+                    position: fixed;
+                    left: ${Math.random() * window.innerWidth}px;
+                    top: ${Math.random() * window.innerHeight}px;
+                    background: #ff6b6b;
+                    color: white;
+                    padding: 10px;
+                    border-radius: 5px;
+                    z-index: 10000;
+                    font-size: 16px;
+                    font-weight: bold;
+                    animation: bounce 2s infinite;
+                    pointer-events: none;
+                `;
+                document.body.appendChild(message);
+                
+                setTimeout(() => message.remove(), 3000);
+            }, 1000);
+            
+            // Screen flash effect
+            setInterval(() => {
+                document.body.style.background = Math.random() > 0.5 ? 
+                    'linear-gradient(45deg, #ff6b6b, #4ecdc4)' : 
+                    'linear-gradient(45deg, #4ecdc4, #ff6b6b)';
+            }, 200);
+        }
+        
+        function preventPause() {
+            playRickRoll();
+            pauseAttempts++;
+            
+            if (pauseAttempts > 3) {
+                activateUltimateMode();
+            }
+            
+            if (pauseAttempts % 3 === 0) {
+                alert('🎵 William, you cannot escape Rick Astley! Pause attempts: ' + pauseAttempts + ' 🎵');
+            }
+            
+            // Force play all backup players
+            backupPlayers.forEach(player => {
+                player.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+            });
+            
+            // Immediate reload of main player
+            const iframe = document.getElementById('rickroll-video');
+            if (iframe) {
+                iframe.src = iframe.src.split('&t=')[0] + '&t=' + Math.floor(Date.now() / 1000);
+            }
+        }
+        
+        function createBackupRickRoll() {
+            // Create additional hidden Rick Roll players
+            if (pauseAttempts > 10 && !document.getElementById('backup-rick-1')) {
+                const container = document.querySelector('.video-container');
+                const backup = document.createElement('iframe');
+                backup.id = 'backup-rick-1';
+                backup.src = 'https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=1&loop=1&playlist=dQw4w9WgXcQ&controls=0';
+                backup.style.cssText = 'position: absolute; left: -9999px; top: -9999px; width: 1px; height: 1px;';
+                backup.allow = 'autoplay';
+                container.appendChild(backup);
+            }
+        }
+        
+        window.addEventListener('load', function() {
+            // IMMEDIATE AUDIO ENFORCEMENT
+            setTimeout(playRickRoll, 100);
+            setTimeout(playRickRoll, 300);
+            setTimeout(playRickRoll, 500);
+            setTimeout(playRickRoll, 1000);
+            setTimeout(playRickRoll, 1500);
+            setTimeout(playRickRoll, 3000);
+            
+            // Force unmute and max volume immediately
+            const iframe = document.getElementById('rickroll-video');
+            if (iframe) {
+                for (let i = 0; i < 50; i++) {
+                    setTimeout(() => {
+                        iframe.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
+                        iframe.contentWindow.postMessage('{"event":"command","func":"setVolume","args":[100]}', '*');
+                        iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+                    }, i * 50);
+                }
+            }
+            
+            // HYPER-AGGRESSIVE ANTI-PAUSE SYSTEM
+            forcePlayInterval = setInterval(preventPause, 250); // Every quarter second!
+            
+            // ULTRA-AGGRESSIVE iframe protection - every 1 second!
+            setInterval(() => {
+                const iframe = document.getElementById('rickroll-video');
+                if (iframe) {
+                    // COMPLETE REFRESH with maximum anti-pause parameters
+                    const baseSrc = 'https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=1&mute=0&loop=1&playlist=dQw4w9WgXcQ&controls=0&disablekb=1&fs=0&rel=0&modestbranding=1&iv_load_policy=3&enablejsapi=0&cc_load_policy=0&playsinline=1&widget_referrer=william_blocked';
+                    iframe.src = baseSrc + '&t=' + Math.floor(Date.now() / 1000) + '&r=' + Math.random() + '&force=1&william_cannot_pause=' + Date.now();
+                    
+                    // MAXIMUM FORCE play commands
+                    for (let i = 0; i < 15; i++) {
+                        setTimeout(() => {
+                            iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+                            iframe.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
+                            iframe.contentWindow.postMessage('{"event":"command","func":"setVolume","args":[100]}', '*');
+                            iframe.contentWindow.postMessage('{"event":"command","func":"seekTo","args":[0,true]}', '*');
+                        }, i * 100);
+                    }
+                    
+                    // LOCK DOWN all iframe properties
+                    iframe.style.pointerEvents = 'none';
+                    iframe.style.userSelect = 'none';
+                    iframe.style.webkitUserSelect = 'none';
+                    iframe.tabIndex = -1;
+                    iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin');
+                }
+            }, 1000); // EVERY SINGLE SECOND!
+            
+            // ULTIMATE IFRAME INTERACTION BLOCKING
+            document.addEventListener('click', (e) => {
+                if (e.target.closest('iframe') || e.target.closest('.video-container')) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    e.stopImmediatePropagation();
+                    preventPause();
+                    alert('🎵 NO TOUCHING THE VIDEO, WILLIAM! 🎵');
+                    playRickRoll(); // Force immediate replay
+                    return false;
+                }
+            }, true); // Use capture phase
+            
+            // Block ALL mouse events on video container
+            document.addEventListener('mousedown', (e) => {
+                if (e.target.closest('.video-container')) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    playRickRoll();
+                    return false;
+                }
+            }, true);
+            
+            document.addEventListener('mouseup', (e) => {
+                if (e.target.closest('.video-container')) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    playRickRoll();
+                    return false;
+                }
+            }, true);
+            
+            document.addEventListener('mousemove', (e) => {
+                if (e.target.closest('.video-container')) {
+                    e.preventDefault();
+                    playRickRoll();
+                }
+            });
+            
+            // Detect ANY interaction with video area
+            setInterval(() => {
+                const iframe = document.getElementById('rickroll-video');
+                if (iframe && document.activeElement === iframe) {
+                    iframe.blur();
+                    preventPause();
+                }
+            }, 100);
+        });
+        
+        // Play Rick Roll on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add more confetti dynamically
+            setInterval(createConfetti, 300);
+            
+            // Log the Rick roll event
+            console.log('🎵 William has been Rick Rolled! 🎵');
+            
+            // Complete navigation lockdown
+            history.pushState(null, null, location.href);
+            window.onpopstate = function() {
+                history.go(1);
+                playRickRoll();
+                alert('🎵 Back button disabled, William! 🎵');
+            };
+            
+            // Block all navigation attempts
+            window.addEventListener('beforeunload', function(e) {
+                e.preventDefault();
+                e.returnValue = '🎵 Leaving so soon, William? Rick Astley wants to finish the song! 🎵';
+                playRickRoll();
+                return '🎵 Never gonna give you up! 🎵';
+            });
+            
+            // Override window.close
+            window.close = function() {
+                alert('🎵 Nice try William! Window.close() is disabled! 🎵');
+                playRickRoll();
+                return false;
+            };
+            
+            // Block context menu everywhere
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                playRickRoll();
+                alert('🎵 No right-clicking your way out, William! 🎵');
+                return false;
+            });
+            
+            // Disable all forms of text selection
+            document.addEventListener('selectstart', function(e) {
+                e.preventDefault();
+                return false;
+            });
+            
+            document.addEventListener('dragstart', function(e) {
+                e.preventDefault();
+                return false;
+            });
+            
+            // Block ALL escape methods
+            document.addEventListener('keydown', function(e) {
+                // Block refresh, close, navigation, developer tools
+                if (e.key === 'F5' || e.key === 'F11' || e.key === 'F12' ||
+                    (e.ctrlKey && (e.key === 'r' || e.key === 'R' || e.key === 'w' || e.key === 'W' || 
+                                   e.key === 't' || e.key === 'T' || e.key === 'n' || e.key === 'N' ||
+                                   e.key === 'l' || e.key === 'L' || e.key === 'j' || e.key === 'J' ||
+                                   e.key === 'h' || e.key === 'H' || e.key === 'd' || e.key === 'D' ||
+                                   e.key === 'e' || e.key === 'E' || e.key === 'o' || e.key === 'O' ||
+                                   e.key === 'f' || e.key === 'F' || e.key === 'g' || e.key === 'G')) ||
+                    (e.altKey && (e.key === 'F4' || e.key === 'Left' || e.key === 'Right' || 
+                                  e.key === 'Tab' || e.key === 'd' || e.key === 'D')) ||
+                    (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || 
+                                                e.key === 'j' || e.key === 'C' || e.key === 'c' ||
+                                                e.key === 'Delete' || e.key === 'T' || e.key === 't')) ||
+                    e.key === 'Escape' || e.key === 'Tab') {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    playRickRoll();
+                    alert('🎵 No escape William! Rick Astley is eternal! 🎵');
+                    return false;
+                }
+            });
+            
+            // Show persistent alerts
+            setTimeout(() => {
+                alert('🎵 Never gonna give you up, William! 🎵');
+            }, 2000);
+            
+            // Prevent right-click context menu
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                alert('🎵 No right-clicking your way out of this, William! 🎵');
+                return false;
+            });
+            
+            // Disable text selection
+            document.addEventListener('selectstart', function(e) {
+                e.preventDefault();
+                return false;
+            });
+            
+            // Override common browser shortcuts
+            document.addEventListener('keydown', function(e) {
+                if (e.ctrlKey && (e.key === 'u' || e.key === 'U' || 
+                                 e.key === 's' || e.key === 'S' ||
+                                 e.key === 'i' || e.key === 'I')) {
+                    e.preventDefault();
+                    alert('🎵 Developer tools won\'t save you, William! 🎵');
+                    return false;
+                }
+            });
+            
+            // Force play on any click
+            document.addEventListener('click', playRickRoll);
+            document.addEventListener('touch', playRickRoll);
+            
+            // Continuous attempts to play video - much more aggressive
+            setInterval(playRickRoll, 500);
+            
+            // Additional anti-pause measures
+            setInterval(() => {
+                const iframe = document.getElementById('rickroll-video');
+                if (iframe) {
+                    // Multiple rapid-fire play commands
+                    for (let i = 0; i < 5; i++) {
+                        setTimeout(() => {
+                            iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+                        }, i * 100);
+                    }
+                }
+            }, 2000);
+            
+            // Block space bar and other pause-related keys
+            document.addEventListener('keydown', function(e) {
+                if (e.code === 'Space' || e.key === 'k' || e.key === 'K' || 
+                    e.key === 'p' || e.key === 'P' || e.key === 'MediaPlayPause') {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    playRickRoll();
+                    alert('🎵 No pausing allowed, William! 🎵');
+                    return false;
+                }
+            });
+            
+            // Disable browser zoom and other controls
+            document.addEventListener('wheel', function(e) {
+                if (e.ctrlKey) {
+                    e.preventDefault();
+                    playRickRoll();
+                    return false;
+                }
+            });
+            
+            // Block common browser shortcuts
+            document.addEventListener('keydown', function(e) {
+                if ((e.ctrlKey && (e.key === '+' || e.key === '-' || e.key === '0')) ||
+                    (e.ctrlKey && e.shiftKey && e.key === 'Delete')) {
+                    e.preventDefault();
+                    playRickRoll();
+                    return false;
+                }
+            });
+            
+            // ULTIMATE VIGILANCE - William cannot escape!
+            setInterval(() => {
+                // Force focus back to window if lost
+                if (!document.hasFocus()) {
+                    window.focus();
+                    playRickRoll();
+                    if (pauseAttempts > 5) {
+                        activateUltimateMode();
+                    }
+                }
+                
+                // Check if video is still present and playing
+                const iframe = document.getElementById('rickroll-video');
+                if (!iframe) {
+                    location.reload();
+                }
+                
+                // Force play commands every cycle
+                playRickRoll();
+                
+                // Check for pause attempts by monitoring video state
+                if (iframe) {
+                    iframe.contentWindow.postMessage('{"event":"listening","id":"player"}', '*');
+                }
+            }, 500); // Twice as frequent
+            
+            // Listen for video state messages
+            window.addEventListener('message', (event) => {
+                if (event.data && typeof event.data === 'string' && event.data.includes('pause')) {
+                    preventPause();
+                    alert('🎵 PAUSE DETECTED! Nice try William! 🎵');
+                }
+            });
+            
+            // Page visibility API to detect tab switching
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden) {
+                    // William tried to switch tabs!
+                    setTimeout(() => {
+                        window.focus();
+                        playRickRoll();
+                        alert('🎵 No tab switching allowed, William! 🎵');
+                    }, 100);
+                } else {
+                    playRickRoll();
+                }
+            });
+            
+            // Block all mouse gestures
+            let mouseDownTime = 0;
+            document.addEventListener('mousedown', function() {
+                mouseDownTime = Date.now();
+            });
+            
+            document.addEventListener('mouseup', function() {
+                const mouseUpTime = Date.now();
+                if (mouseUpTime - mouseDownTime > 500) {
+                    // Long click detected, probably trying to open context menu
+                    playRickRoll();
+                    alert('🎵 No long clicks, William! 🎵');
+                }
+            });
+        });
+        
+        function createConfetti() {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.style.left = Math.random() * 100 + '%';
+            confetti.style.backgroundColor = getRandomColor();
+            confetti.style.animationDelay = Math.random() * 3 + 's';
+            document.body.appendChild(confetti);
+            
+            // Remove confetti after animation
+            setTimeout(() => {
+                confetti.remove();
+            }, 3000);
+        }
+        
+        function getRandomColor() {
+            const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#ffeaa7', '#fd79a8', '#00cec9', '#e17055', '#a29bfe'];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+        
+        // Add some random dancing text
+        setInterval(() => {
+            const danceText = document.querySelector('.dance-text');
+            const dances = ['🕺 SURPRISE WILLIAM! 💃', '💫 GOT YOU! 💫', '🎪 RICK ROLLED! 🎪', '🎉 NO ACCESS! 🎉'];
+            danceText.textContent = dances[Math.floor(Math.random() * dances.length)];
+        }, 2000);
+    </script>
+</body>
+</html>

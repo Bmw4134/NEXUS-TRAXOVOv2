@@ -1,0 +1,14 @@
+{
+  "name": "traxovo-infinity",
+  "version": "1.0.0",
+  "description": "TRAXOVO Deployment - Final Infinity Sweep",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "build": "echo '\u2705 Build completed (placeholder)'"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "playwright": "^1.44.0"
+  }
+}

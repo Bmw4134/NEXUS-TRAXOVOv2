@@ -1,0 +1,106 @@
+{% extends "base_clean.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 text-center text-white">
+        <div class="mb-5">
+            <i class="fas fa-brain fa-5x mb-4"></i>
+            <h1 class="display-4 fw-bold mb-4">TRAXOVO Intelligence Platform</h1>
+            <p class="lead mb-5">Advanced autonomous system intelligence for enterprise-level AI management and distributed computational analysis.</p>
+        </div>
+
+        <div class="row g-4 mb-5">
+            <div class="col-md-4">
+                <div class="card bg-transparent border-light">
+                    <div class="card-body text-white">
+                        <i class="fas fa-network-wired fa-2x mb-3"></i>
+                        <h5>HyperMesh Network</h5>
+                        <p class="small">Distributed computational architecture for real-time analysis</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card bg-transparent border-light">
+                    <div class="card-body text-white">
+                        <i class="fas fa-chart-line fa-2x mb-3"></i>
+                        <h5>Real-time Telemetry</h5>
+                        <p class="small">Advanced monitoring and intelligence gathering systems</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card bg-transparent border-light">
+                    <div class="card-body text-white">
+                        <i class="fas fa-shield-alt fa-2x mb-3"></i>
+                        <h5>Secure Management</h5>
+                        <p class="small">Enterprise-grade security and credential management</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card bg-white">
+            <div class="card-body">
+                <h3 class="text-dark mb-4">Access Command Console</h3>
+                <div class="alert alert-info mb-4">
+                    <i class="fas fa-info-circle me-2"></i>
+                    <strong>Authentication:</strong> Enter your first name as both username and password.
+                </div>
+                {% with messages = get_flashed_messages() %}
+                  {% if messages %}
+                    <div class="alert alert-danger">
+                      {{ messages[0] }}
+                    </div>
+                  {% endif %}
+                {% endwith %}
+                <form method="POST" action="{{ url_for('login') }}" id="loginForm">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <input type="text" class="form-control form-control-lg" name="username" placeholder="First Name" required autocomplete="username">
+                        </div>
+                        <div class="col-md-6">
+                            <input type="password" class="form-control form-control-lg" name="password" placeholder="Same as Username" required autocomplete="current-password">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg mt-3 px-5" id="loginButton">
+                        <i class="fas fa-sign-in-alt me-2"></i>Initialize Console
+                    </button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+    const loginButton = document.getElementById('loginButton');
+    loginButton.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Authenticating...';
+    loginButton.disabled = true;
+    
+    // Add a small delay to show the loading state
+    setTimeout(() => {
+        // Let the form submit normally
+        this.submit();
+    }, 100);
+});
+
+// Auto-fill demo credentials function
+function fillDemo() {
+    document.querySelector('input[name="username"]').value = 'demo';
+    document.querySelector('input[name="password"]').value = 'demo';
+    
+    // Add visual feedback
+    const button = document.getElementById('loginButton');
+    button.innerHTML = '<i class="fas fa-user me-2"></i>Demo Ready - Click to Login';
+    button.classList.add('btn-success');
+    button.classList.remove('btn-primary');
+    
+    setTimeout(() => {
+        button.innerHTML = '<i class="fas fa-sign-in-alt me-2"></i>Initialize Console';
+        button.classList.remove('btn-success');
+        button.classList.add('btn-primary');
+    }, 2000);
+}
+</script>
+{% endblock %}
